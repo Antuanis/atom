@@ -25,8 +25,7 @@ public class Util {
      * @return the largest of values.
      */
     public static int max(int[] values) {
-
-       return 0;
+        return 0;
     }
 
     /**
