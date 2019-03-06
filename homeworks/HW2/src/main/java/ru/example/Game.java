@@ -4,18 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Random;
+import org.slf4j.LoggerFactory;
 
 public class Game {
-
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(Game.class);
     public static void main(String[] args) {
 
         play("dictionary.txt");
+        log.info("Логгер живой");
 
     }
 
-    public static boolean play(String FileName) {
+    public static boolean play(String filename) {
 
-        String word = getWord(FileName);
+        String word = getWord(filename);
         //System.out.println(word);
         char[] myword = word.toCharArray();
         int count = myword.length;
@@ -64,11 +66,11 @@ public class Game {
         return cow;
     } //Вычисление "коров"
 
-    public static String getWord(String FileName) {
+    public static String getWord(String filename) {
 
         try {
 
-            Scanner scan = new Scanner(new File(FileName));
+            Scanner scan = new Scanner(new File(filename));
             int count = 0;
             while (scan.hasNext()) { //Считаем количество строк(слов) в файле
                 scan.nextLine();
@@ -78,7 +80,7 @@ public class Game {
 
             Random rnd = new Random(System.currentTimeMillis());
             int number = rnd.nextInt(count);//Выбираем случайное слово
-            scan = new Scanner(new File(FileName));
+            scan = new Scanner(new File(filename));
             for (int i = 0; i < number - 1; i++)
                 scan.nextLine();
             return (scan.nextLine());//Выводим полученное слово
