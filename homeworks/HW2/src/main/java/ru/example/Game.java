@@ -13,7 +13,7 @@ public class Game {
 
     }
 
-    static void BAndC() {
+    public static void BAndC() {
 
         String word = GetWord();
         //System.out.println(word);
@@ -22,11 +22,11 @@ public class Game {
         System.out.println("Welcome to Bulls and Cows game!");
         System.out.println("I offered a " + count + "-letter word, your guess?");
         Scanner scan = new Scanner(System.in);
-        for (int i = 0; i < 10; i++) {//10 попыток
+        for (int i = 0; i < 10; i++) { //10 попыток
 
             String mm = scan.nextLine();
             char[] inword = mm.toCharArray();
-            if (word.equals(mm)) {     //Сравнение 2х строк
+            if (word.equals(mm)) { //Сравнение 2х строк
                 System.out.println("You Won!!!");
                 return;
 
@@ -34,14 +34,14 @@ public class Game {
 
             int bulls = 0, cows = 0;
             count = Math.min(count, inword.length);//Берем длинну более короткого слова
-            for (int j = 0; j < count; j++) {//Считаем "Быков"
+            for (int j = 0; j < count; j++) { //Считаем "Быков"
                 if (myword[j] == inword[j])
                     bulls++;
 
             }
 
             System.out.println("Bulls: " + bulls);
-            for (int j = 0; j < inword.length; j++) {//Счтаем"Коров"
+            for (int j = 0; j < inword.length; j++) { //Счтаем"Коров"
                 if (word.indexOf(inword[j]) > -1)
                     cows++;
 
@@ -53,15 +53,15 @@ public class Game {
 
         System.out.println("You Lose: " + word);
 
-    }//Игра Быки и Коровы
+    } //Игра Быки и Коровы
 
-    static String GetWord() {
+    public static String GetWord() {
 
         try {
 
             Scanner scan = new Scanner(new File("dictionary.txt"));
             int count = 0;
-            while (scan.hasNext()) {//Считаем количество строк(слов) в файле
+            while (scan.hasNext()) { //Считаем количество строк(слов) в файле
                 scan.nextLine();
                 count++;
 
@@ -74,13 +74,13 @@ public class Game {
                 scan.nextLine();
             return (scan.nextLine());//Выводим полученное слово
 
-        } catch (FileNotFoundException ex) {//Если файл не найден выводит ошибку
+        } catch (FileNotFoundException ex) { //Если файл не найден выводит ошибку
 
             System.err.println("File not found: " + ex.getMessage());
             return null;
 
         }
 
-    }// Выбор случайного слова из файла
+    } // Выбор случайного слова из файла
 
 }
