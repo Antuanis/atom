@@ -9,13 +9,13 @@ public class Game {
 
     public static void main(String[] args) {
 
-        BAndC();
+        play("dictionary.txt");
 
     }
 
-    public static void BAndC() {
+    public static boolean play(String FileName) {
 
-        String word = GetWord();
+        String word = getWord(FileName);
         //System.out.println(word);
         char[] myword = word.toCharArray();
         int count = myword.length;
@@ -28,38 +28,47 @@ public class Game {
             char[] inword = mm.toCharArray();
             if (word.equals(mm)) { //Сравнение 2х строк
                 System.out.println("You Won!!!");
-                return;
+                return true;
 
             }
 
-            int bulls = 0, cows = 0;
-            count = Math.min(count, inword.length);//Берем длинну более короткого слова
-            for (int j = 0; j < count; j++) { //Считаем "Быков"
-                if (myword[j] == inword[j])
-                    bulls++;
-
-            }
-
-            System.out.println("Bulls: " + bulls);
-            for (int j = 0; j < inword.length; j++) { //Счтаем"Коров"
-                if (word.indexOf(inword[j]) > -1)
-                    cows++;
-
-            }
-
-            System.out.println("Cows: " + cows);
+            int bul = bulls(inword, myword);
+            int cow = cows(inword, word);
+            System.out.println("Bulls: " + bul);
+            System.out.println("Cows: " + cow);
 
         }
 
         System.out.println("You Lose: " + word);
+        return false;
 
     } //Игра Быки и Коровы
 
-    public static String GetWord() {
+    public static int bulls(char[] inword, char[] myword) {
+
+        int count = Math.min(myword.length, inword.length);//Берем длинну более короткого слова
+        int bul = 0;
+        for (int j = 0; j < count; j++)  //Считаем "Быков"
+            if (myword[j] == inword[j])
+                bul++;
+        return bul;
+
+    } //Вычисление "быков"
+
+    public static int cows(char[] inword, String word) {
+
+        int cow = 0;
+        for (int j = 0; j < inword.length; j++) //Счтаем"Коров"
+            if (word.indexOf(inword[j]) > -1)
+                cow++;
+        return cow;
+    } //Вычисление "коров"
+
+    public static String getWord(String FileName) {
 
         try {
 
-            Scanner scan = new Scanner(new File("dictionary.txt"));
+            Scanner scan = new Scanner(new File(FileName));
             int count = 0;
             while (scan.hasNext()) { //Считаем количество строк(слов) в файле
                 scan.nextLine();
@@ -69,7 +78,7 @@ public class Game {
 
             Random rnd = new Random(System.currentTimeMillis());
             int number = rnd.nextInt(count);//Выбираем случайное слово
-            scan = new Scanner(new File("dictionary.txt"));
+            scan = new Scanner(new File(FileName));
             for (int i = 0; i < number - 1; i++)
                 scan.nextLine();
             return (scan.nextLine());//Выводим полученное слово
