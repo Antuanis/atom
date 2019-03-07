@@ -39,7 +39,7 @@ public class Game {
             int bul = bulls(inword, myword);
             int cow = cows(inword, word);
             System.out.println("Bulls: " + bul);
-            System.out.println("Cows: " + cow);
+            System.out.println("Cows: " + (cow-bul));
 
         }
 
