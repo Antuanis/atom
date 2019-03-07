@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Random;
+
 import org.slf4j.LoggerFactory;
 
 public class Game {
@@ -39,7 +40,7 @@ public class Game {
             int bul = bulls(inword, myword);
             int cow = cows(inword, word);
             System.out.println("Bulls: " + bul);
-            System.out.println("Cows: " + (cow-bul));
+            System.out.println("Cows: " + (cow - bul));
 
         }
 
