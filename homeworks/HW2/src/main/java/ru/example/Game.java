@@ -13,8 +13,8 @@ public class Game {
 
     public static void main(String[] args) {
 
-        play("dictionary.txt");
         log.info("Логгер живой");
+        play("dictionary.txt");
 
     }
 
