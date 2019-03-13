@@ -38,7 +38,7 @@ public class ChatClient {
     }
 
     //POST host:port/chat/say?name=my_name
-    //Body: "msg='my_message'"
+    //Body: "msg = 'my_message'"
     public static Response say(String name, String msg) throws IOException {
         throw new UnsupportedOperationException();
     }
