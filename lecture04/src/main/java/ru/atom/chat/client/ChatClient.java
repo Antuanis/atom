@@ -47,7 +47,7 @@ public class ChatClient {
 
         Request request = new Request.Builder()
                 .post(RequestBody.create(mediaType, ""))
-                .url(PROTOCOL + HOST + PORT + "/chat/say?name="+name+"&msg="+msg)
+                .url(PROTOCOL + HOST + PORT + "/chat/say?name=" + name + "&msg=" + msg)
                 .addHeader("host", HOST + PORT)
                 .build();
         return client.newCall(request).execute();
@@ -72,6 +72,29 @@ public class ChatClient {
                 .url(PROTOCOL + HOST + PORT + "/chat/logout?name=" + name)
                 .build();
 
+        return client.newCall(request).execute();
+    }
+
+    //POST host:port/chat/clear?name=my_name
+    public static Response clear(String name) throws IOException {
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        Request request = new Request.Builder()
+                .post(RequestBody.create(mediaType, ""))
+                .url(PROTOCOL + HOST + PORT + "/chat/clear?name=" + name)
+                .build();
+
+        return client.newCall(request).execute();
+    }
+
+    //POST host:port/chat/say?oldname=my_name&newname=newname
+    public static Response rename(String oldname, String newname) throws IOException {
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+
+        Request request = new Request.Builder()
+                .post(RequestBody.create(mediaType, ""))
+                .url(PROTOCOL + HOST + PORT + "/chat/rename?oldname=" + oldname + "&newname=" + newname)
+                .addHeader("host", HOST + PORT)
+                .build();
         return client.newCall(request).execute();
     }
 

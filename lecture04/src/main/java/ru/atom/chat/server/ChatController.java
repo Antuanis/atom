@@ -4,7 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Map;
 import java.util.Queue;
@@ -66,8 +69,7 @@ public class ChatController {
             usersOnline.remove(name, name);
             messages.add("[" + name + "] logged out");
             return ResponseEntity.ok().build();
-        }
-        else
+        } else
             return ResponseEntity.badRequest().body("Allredy not logged in");
     }
 
@@ -83,8 +85,7 @@ public class ChatController {
         if (usersOnline.containsKey(name)) {
             messages.add("[" + name + "]: " + msg);
             return ResponseEntity.ok().build();
-        }
-        else
+        } else
             return ResponseEntity.badRequest().body("Allredy not logged in");
     }
 
@@ -110,9 +111,37 @@ public class ChatController {
             path = "clear",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity clear() {
-       messages.clear();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> clear(@RequestParam("name") String name) {
+        if (usersOnline.containsKey(name)) {
+            messages.clear();
+            messages.add("[" + name + "] Очистил историю сообщений");
+            return ResponseEntity.ok().build();
+        } else
+            return ResponseEntity.badRequest().body("Allredy not logged in");
     }
+
+    /**
+     * curl -i localhost:8080/chat/rename
+     */
+
+    @RequestMapping(
+            path = "rename",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<String> rename(@RequestParam("oldname") String oldname,
+                                         @RequestParam("newname") String newname) {
+        if (usersOnline.containsKey(oldname))
+            if (usersOnline.containsKey(newname))
+                return ResponseEntity.badRequest().body("Данное имя занято");
+            else {
+                usersOnline.remove(oldname);
+                usersOnline.put(newname, newname);
+                messages.add("[" + oldname + "] Изменил свое имя на " + newname);
+                return ResponseEntity.ok().build();
+            }
+        else
+            return ResponseEntity.badRequest().body("Allredy not logged in");
+    }
+
 
 }

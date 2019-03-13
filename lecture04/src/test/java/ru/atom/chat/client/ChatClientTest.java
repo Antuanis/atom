@@ -56,4 +56,25 @@ public class ChatClientTest {
         System.out.println(response.body().string());
         Assert.assertEquals(200, response.code());
     }
+
+    @Test
+    public void clear() throws IOException {
+        ChatClient.login("Олег");
+        Response response = ChatClient.clear("Олег");
+        System.out.println("[" + response + "]");
+        String body = response.body().string();
+        System.out.println();
+        Assert.assertTrue(response.code() == 200 || body.equals("Already logged in:("));
+    }
+
+    @Test
+    public void rename() throws IOException {
+        ChatClient.login("Паша");
+        Response response = ChatClient.rename("Паша", "Павел");
+        System.out.println("[" + response + "]");
+        String body = response.body().string();
+        System.out.println();
+        Assert.assertTrue(response.code() == 200 || body.equals("Already logged in:("));
+    }
+
 }
