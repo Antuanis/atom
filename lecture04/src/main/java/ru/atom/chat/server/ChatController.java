@@ -70,7 +70,7 @@ public class ChatController {
             messages.add("[" + name + "] logged out");
             return ResponseEntity.ok().build();
         } else
-            return ResponseEntity.badRequest().body("Allredy not logged in");
+            return ResponseEntity.badRequest().body("Already not logged in:(");
     }
 
     /**
@@ -86,7 +86,7 @@ public class ChatController {
             messages.add("[" + name + "]: " + msg);
             return ResponseEntity.ok().build();
         } else
-            return ResponseEntity.badRequest().body("Allredy not logged in");
+            return ResponseEntity.badRequest().body("Already not logged in:(");
     }
 
 
@@ -117,7 +117,7 @@ public class ChatController {
             messages.add("[" + name + "] Очистил историю сообщений");
             return ResponseEntity.ok().build();
         } else
-            return ResponseEntity.badRequest().body("Allredy not logged in");
+            return ResponseEntity.badRequest().body("Already not logged in:(");
     }
 
     /**
@@ -140,7 +140,7 @@ public class ChatController {
                 return ResponseEntity.ok().build();
             }
         else
-            return ResponseEntity.badRequest().body("Allredy not logged in");
+            return ResponseEntity.badRequest().body("Already not logged in:(");
     }
 
 

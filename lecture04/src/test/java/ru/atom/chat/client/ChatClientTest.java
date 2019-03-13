@@ -23,12 +23,11 @@ public class ChatClientTest {
 
     @Test
     public void logout() throws IOException {
-        ChatClient.login("Дима");
-        Response response = ChatClient.logout("Дима");
+        Response response = ChatClient.logout(MY_NAME_IN_CHAT);
         System.out.println("[" + response + "]");
         String body = response.body().string();
         System.out.println();
-        Assert.assertTrue(response.code() == 200 || body.equals("Already logged in:("));
+        Assert.assertTrue(response.code() == 200 || body.equals("Already not logged in:("));
     }
 
     @Test
@@ -50,31 +49,29 @@ public class ChatClientTest {
 
     @Test
     public void say() throws IOException {
-        ChatClient.login("Антон");
-        Response response = ChatClient.say("Антон", MY_MESSAGE_TO_CHAT);
+        Response response = ChatClient.say(MY_NAME_IN_CHAT, MY_MESSAGE_TO_CHAT);
         System.out.println("[" + response + "]");
-        System.out.println(response.body().string());
-        Assert.assertEquals(200, response.code());
+        String body = response.body().string();
+        System.out.println();
+        Assert.assertTrue(response.code() == 200 || body.equals("Already not logged in:("));
     }
 
     @Test
     public void clear() throws IOException {
-        ChatClient.login("Олег");
-        Response response = ChatClient.clear("Олег");
+        Response response = ChatClient.clear(MY_NAME_IN_CHAT);
         System.out.println("[" + response + "]");
         String body = response.body().string();
         System.out.println();
-        Assert.assertTrue(response.code() == 200 || body.equals("Already logged in:("));
+        Assert.assertTrue(response.code() == 200 || body.equals("Already not logged in:("));
     }
 
     @Test
     public void rename() throws IOException {
-        ChatClient.login("Паша");
-        Response response = ChatClient.rename("Паша", "Павел");
+        Response response = ChatClient.rename(MY_NAME_IN_CHAT, "Павел");
         System.out.println("[" + response + "]");
         String body = response.body().string();
         System.out.println();
-        Assert.assertTrue(response.code() == 200 || body.equals("Already logged in:("));
+        Assert.assertTrue(response.code() == 200 || body.equals("Already not logged in:(") || body.equals("Данное имя занято"));
     }
 
 }
