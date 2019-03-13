@@ -22,6 +22,16 @@ public class ChatClientTest {
     }
 
     @Test
+    public void logout() throws IOException {
+        ChatClient.login("Дима");
+        Response response = ChatClient.logout("Дима");
+        System.out.println("[" + response + "]");
+        String body = response.body().string();
+        System.out.println();
+        Assert.assertTrue(response.code() == 200 || body.equals("Already logged in:("));
+    }
+
+    @Test
     public void viewChat() throws IOException {
         Response response = ChatClient.viewChat();
         System.out.println("[" + response + "]");
@@ -40,7 +50,8 @@ public class ChatClientTest {
 
     @Test
     public void say() throws IOException {
-        Response response = ChatClient.say(MY_NAME_IN_CHAT, MY_MESSAGE_TO_CHAT);
+        ChatClient.login("Антон");
+        Response response = ChatClient.say("Антон", MY_MESSAGE_TO_CHAT);
         System.out.println("[" + response + "]");
         System.out.println(response.body().string());
         Assert.assertEquals(200, response.code());
